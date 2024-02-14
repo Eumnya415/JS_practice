@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>attribute / proterty</title>
+    <script type="text/javascript">
+        const init = () => {
+            // console.log('page load!');
+            document.getElementById("btn").num = "9999"
+            document.getElementById("btn").onclick = function(){
+                console.log(this.num)
+                const list = document.getElementById("list");
+                const aTagList = list.getElementsByTagName("a");
+                console.log(aTagList)         
+                for (let index = 0; index < aTagList.length; index++) {
+                    console.log(aTagList[index].getAttribute("num"));
+                }
+            };
+        };
+        window.onload = init;
+    </script>
+</head>
+<body>
+    <button id="btn">click</button>
+    <hr />
+    <ul id="list">
+        <li><a href="http://www.naver.com" id="link1" num="1">naver</a></li> <!-- num으로 마킹 : 코드를 쉽게 읽을 수 있게 함-->
+        <li><a href="http://www.google.com" id="link2" num="2">google</a></li>
+    </ul>
+</body>
+</html>
