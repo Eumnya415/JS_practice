@@ -15,13 +15,35 @@
 				const emailValue = $.trim($("#email").val()); // 양쪽 공백 제거
 				if(emailValue == ""){
 					window.alert("아이디를 입력해 주세요.");
-					$("#email").focus();
+					$("#email").focus();  // 아이디 창에 커서 표시
 					return false;
 				}
-				console.log('click');
+				const passwdValue = $.trim($("#passwd").val()); // 양쪽 공백 제거
+				if(passwdValue == ""){
+					window.alert("비밀번호를 입력해 주세요." );
+					$("#passwd").focus();  // 비밀번호 창에 커서 표시
+					return false;
+				}
+				if(passwdValue.length < 5){
+					window.alert("비밀번호는 최소 5자리 이상입니다.");
+					$("#passwd").focus();  // 비밀번호 창에 커서 표시
+					return false;
+				}
+				console.log('login!');
 			}
 		);
-	  }
+		
+		// 비밀번호를 입력하고 엔터키를 눌렀을 때 로그인
+		$("#passwd").on(
+            "keyup", 
+            function (e) {
+           // console.log(e);
+            if(e.key.toLowerCase() == "enter"){
+                $("#loginBtn").trigger("click"); // 강제 이벤트 실행
+            }
+        }
+	);
+}
 	  window.onload = init;
   </script>
  </head>
