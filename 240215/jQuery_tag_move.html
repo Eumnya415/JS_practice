@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>jQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        const init = function(){
+
+            // move 버튼을 누르면 list2에 있던 목록들이 list1로 이동
+           $("#moveBtn").on(
+            "click",
+            function(){
+                $("#list1").append($("#list2 li:first"));
+            }
+           );
+        }
+        window.onload = init;
+    </script>
+</head>
+<body>
+    <button id="moveBtn">move</button>
+    <ul id="list1"></ul>
+    <hr />
+    <ul id="list2">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+</body>
+</html>
