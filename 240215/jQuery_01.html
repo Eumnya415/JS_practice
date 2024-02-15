@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>jQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        const init = function(){
+            $("#box").on(
+                "click",
+                function(){
+                    // this.innerText = "box click";
+                    $(this).text("click");
+                    console.log($(this).attr("id"));
+                }
+            );
+        }
+        window.onload = init;
+    </script>
+</head>
+<body>
+    <div id="box">text</div>
+</body>
+</html>
