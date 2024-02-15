@@ -6,7 +6,44 @@
   <link href="css/common.css" type="text/css" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
   <script type="text/javascript">
-	 
+	const init = function(){
+	// 추가하기 버튼을 누르면 데이터 생성
+	$("#adressList").data("rowCount",0);
+		$("#addBtn").on(
+			"click",
+			function(e){
+				e.preventDefault(); // 이중 클릭 방지
+				const rowCount = $("#adressList").data("rowCount");
+				if(rowCount == 0){
+					$("#adressList tbody tr").remove();
+				}
+				$("#adressList").data("rowCount",rowCount+1);
+				const tr = document.createElement("tr");
+				$(tr).append("<td>차소영</td>");
+				$(tr).append("<td>010-1111-2222</td>");
+				const td = $("<td></td>").appendTo(tr);
+				const aTagText = "<a href=\"#\"><img src=\"images/btn_del.gif\" alt=\"삭제\" /></a>";
+				const aTag = $(aTagText).appendTo(td);
+				// aTag (삭제버튼) 클릭 시 데이터 삭제
+				$(aTag).on(
+					"click",
+					function(){
+						$(this).parent().parent().remove(); // '나'를 기준으로 부모노드 선택
+						const rowCount = $("#adressList").data("rowCount");
+						const nextRowCount = rowCount - 1;
+						// 등록된 데이터 전부 삭제 시 '등록된 내용이 없습니다' 표시
+						$("#adressList").data("rowCount",nextRowCount);
+						if(nextRowCount == 0){
+							$("#adressList tbody").append("<tr><td colspan=\"3\">등록 된 내용이 없습니다.</td></tr>");
+						}
+					}
+				);
+				// $(tr).append("<td><a href=\"#\"><img src=\"images/btn_del.gif\" alt=\"삭제\" /></a></td>");
+				$("#adressList tbody").append(tr);
+			}
+		);
+	 }
+	 window.onload = init;
   </script>
  </head>
  <body>
@@ -35,15 +72,15 @@
 		<tr>
 			<td colspan="3">등록 된 내용이 없습니다.</td>
 		</tr>
-		<!--
+<!-- 		
 		<tr>
-			<td>양영보</td>
+			<td>차소영</td>
 			<td>010-1111-2222</td>
 			<td>
 				<a href="#"><img src="images/btn_del.gif" alt="삭제" /></a>
 			</td>
 		</tr>
-		-->
+		 -->
 	</tbody>
 </table>
  </body>
