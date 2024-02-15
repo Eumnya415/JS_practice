@@ -2,11 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title> new document </title>
+  <title>Login form</title>
   <link href="css/common.css" type="text/css" rel="stylesheet"  media="screen" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script type="text/javascript">
-	  
+	  const init = function(){
+		$("#loginBtn").on(
+			"click",
+			// 클릭 이벤트 핸들러 함수를 선언한다.
+			function(e){
+				e.preventDefault(); // 이중 클릭 방지
+				const emailValue = $("#email").val();
+				console.log(emailValue);
+				console.log($.trim(emailValue)); // 양쪽 공백 제거
+			}
+		);
+	  }
+	  window.onload = init;
   </script>
  </head>
  <body>
