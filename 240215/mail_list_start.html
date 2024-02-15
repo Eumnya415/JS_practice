@@ -7,6 +7,20 @@
 	<script type="text/javascript">
 		const init = function(){
 			const mailIdList = document.getElementsByName("mailId");
+			document.getElementById("delBtn").onclick = function(){
+				let check = false;
+				for (let index = 0; index < mailIdList.length; index++) {
+					if(mailIdList[index].checked){
+						check = true;
+						break;
+					}
+				}
+				if (!check){
+					console.log("최소 한개를 선택해 주셔야 합니다.");
+				}else{
+					console.log("삭제 성공");
+				}
+			}
 			document.getElementById("checkAll").onclick = function(){
 				// console.log(this.checked);
 				for (let index = 0; index < mailIdList.length; index++) {
