@@ -15,6 +15,8 @@
 				const emailValue = $.trim($("#email").val()); // 양쪽 공백 제거
 				if(emailValue == ""){
 					window.alert("아이디를 입력해 주세요.");
+					$("#email").focus();
+					return false;
 				}
 				console.log('click');
 			}
