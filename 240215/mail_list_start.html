@@ -21,6 +21,7 @@
 					console.log("삭제 성공");
 				}
 			}
+			const checkAllInput = document.getElementById("checkAll");
 			document.getElementById("checkAll").onclick = function(){
 				// console.log(this.checked);
 				for (let index = 0; index < mailIdList.length; index++) {
@@ -45,6 +46,7 @@
 					}else{
 						mailIdTr.className = "";
 					}
+					checkAllInput.checked = false;
 				}
 			}
 		}
