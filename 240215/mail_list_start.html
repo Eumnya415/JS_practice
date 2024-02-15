@@ -7,10 +7,30 @@
 	<script type="text/javascript">
 		const init = function(){
 			const mailIdList = document.getElementsByName("mailId");
-			console.log(mailIdList);
+			document.getElementById("checkAll").onclick = function(){
+				// console.log(this.checked);
+				for (let index = 0; index < mailIdList.length; index++) {
+					// console.log(index,mailIdList[index]);
+					mailIdList[index].checked = this.checked;
+					const mailIdTr = document.getElementById("mailId_"+mailIdList[index].value);
+					if(this.checked){
+						mailIdTr.className = "selected";
+					}else{
+						mailIdTr.className = "";
+					}
+			}
+		}
+			// console.log(mailIdList);
 			for (let index = 0; index < mailIdList.length; index++) {
 				mailIdList[index].onclick = function(){
-					console.log(this.checked);
+					// id="mailId_10"
+					console.log(this.checked,this.value);
+					const mailIdTr = document.getElementById("mailId_"+this.value);
+					if(this.checked){
+						mailIdTr.className = "selected";
+					}else{
+						mailIdTr.className = "";
+					}
 				}
 			}
 		}
