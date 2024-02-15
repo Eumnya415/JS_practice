@@ -12,9 +12,11 @@
 			// 클릭 이벤트 핸들러 함수를 선언한다.
 			function(e){
 				e.preventDefault(); // 이중 클릭 방지
-				const emailValue = $("#email").val();
-				console.log(emailValue);
-				console.log($.trim(emailValue)); // 양쪽 공백 제거
+				const emailValue = $.trim($("#email").val()); // 양쪽 공백 제거
+				if(emailValue == ""){
+					window.alert("아이디를 입력해 주세요.");
+				}
+				console.log('click');
 			}
 		);
 	  }
