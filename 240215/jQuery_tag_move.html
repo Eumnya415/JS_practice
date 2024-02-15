@@ -28,13 +28,21 @@
             }
            );
 
-        }
+           // 전송버튼 클릭 시 콘솔에 id 전송값 전달
+           $("#sendBtn").on(
+            "click",
+            function(){
+                const idInput = $("input[name='id']").val();
+                console.log(idInput);
+            }
+           );
+
         window.onload = init;
     </script>
 </head>
 <body>
     <form action="" method="get">
-        id : <input type="text" /> <button id="sendBtn" type="button">전송</button>
+        id : <input type="text" name="id"/> <button id="sendBtn" type="button">전송</button>
     </form>
     <button id="moveBtn">move</button>
     <button id="checkBtn">check</button>
