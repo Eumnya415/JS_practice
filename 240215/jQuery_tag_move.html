@@ -13,18 +13,39 @@
                 $("#list1").append($("#list2 li:first"));
             }
            );
+
+
+           $("#checkBtn").on(
+            "click",
+            function(){
+                //$("#list3 li:eq(1)").text("check");
+                $("#list3 li:eq(1)").prev().text("check");
+                $("#list3 li:eq(1)").next().text("check");
+                $("#list3 li:eq(1)").parent().css("border", "1px dashed red");
+                $("#list3 li:eq(1)").find("a").text("")
+                )
+            }
+           );
         }
         window.onload = init;
     </script>
 </head>
 <body>
     <button id="moveBtn">move</button>
+    <button id="checkBtn">check</button>
     <ul id="list1"></ul>
     <hr />
     <ul id="list2">
         <li>1</li>
         <li>2</li>
         <li>3</li>
+    </ul>
+
+    <hr />
+    <ul id="list3">
+        <li><a href="#">naver</a></li>
+        <li><a href="#">google</a></li>
+        <li><a href="#">kakao</a></li>
     </ul>
 </body>
 </html>
