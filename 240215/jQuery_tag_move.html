@@ -19,17 +19,23 @@
             "click",
             function(){
                 //$("#list3 li:eq(1)").text("check");
-                $("#list3 li:eq(1)").prev().text("check");
-                $("#list3 li:eq(1)").next().text("check");
-                $("#list3 li:eq(1)").parent().css("border", "1px dashed red");
-                $("#list3 li:eq(1)").find("a").text("")
+                
+                // 형제, 부모 및 자식노드 지정
+                $("#list3 li:eq(1)").prev().text("check");  // 이전노드
+                $("#list3 li:eq(1)").next().text("check");  // 이후노드
+                $("#list3 li:eq(1)").parent().css("border", "1px dashed red");  // 부모노드
+                $("#list3 li:eq(1)").find("a").text("MS")
             }
            );
+
         }
         window.onload = init;
     </script>
 </head>
 <body>
+    <form action="" method="get">
+        id : <input type="text" /> <button id="sendBtn" type="button">전송</button>
+    </form>
     <button id="moveBtn">move</button>
     <button id="checkBtn">check</button>
     <ul id="list1"></ul>
