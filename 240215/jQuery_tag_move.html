@@ -39,20 +39,20 @@
 
            // 전송 버튼 클릭 대신 엔터키를 눌렀을 때 콘솔에 "전송" 표출
            $("input[name='id']").on(
-            "keyup",
-            function(e){
-                if(e.key.toLowerCase() == "enter"){
-                    console.log("전송");
-                }
+            "keyup", 
+            function (e) {
+           // console.log(e);
+            if(e.key.toLowerCase() == "enter"){
+                console.log("전송")
             }
-           );
-        }
-        window.onload = init;
+        });
+      };
+      window.onload = init;
     </script>
 </head>
 <body>
     <form action="" method="get">
-        id : <input type="text" name="id"/> <button id="sendBtn" type="button">전송</button>
+        id : <input type="text" name="id" /> id : <input type="text" name="pw" /> <button id="sendBtn" type="button">전송</button>
     </form>
     <button id="moveBtn">move</button>
     <button id="checkBtn">check</button>
