@@ -80,11 +80,12 @@
 
         // 표 상단 날짜 표기 방식 변경
         const makeBoxOfficeList = function(boxOfficeList,tableId,searchDate){
+            // 테이블 제목에 출력할 날짜 포맷
             let searchDateStr = searchDate.substring(0,4) + "년 ";
             searchDateStr = searchDateStr + searchDate.substring(4,6) + "월 ";
             searchDateStr = searchDateStr + searchDate.substring(6) + "일";
             $("#"+tableId).prev().find(".date").text(searchDateStr);
-            $("#"+tableId+" tbody tr").remove()
+            $("#"+tableId+" tbody tr").remove(); // $(".date").text(searchDateStr)과 동일한 결과
             if(boxOfficeList.length == 0){
                 // <tr>
                 //         <td colspan="4">박스오피스 정보가 없습니다.</td>
@@ -105,17 +106,21 @@
                         }else{
                             // 순위 변동 표시
                             if(element.rankInten == 0){
-                                $(tr).append("<td>"+element.rankInten+"</td>");
+                                $(tr).append("<td><img src='images/icon_equal.gif'/></td>");
                             }else if(element.rankInten > 0){
-                                $(tr).append("<td><img src='images/icon_up.gif'/></td>");
+                                $(tr).append("<td><img src='images/icon_up.gif'/>"+element.rankInten+"</td>");
                             }else{
-                                $(tr).append("<td><img src='images/icon_down.gif'/></td>");
+                                $(tr).append("<td><img src='images/icon_down.gif'/>"+Math.abs(element.rankInten)+"</td>");
                             }
                         }
                         // 영화명
                         $(tr).append("<td>"+element.movieNm+"</td>");
+
+
                         // 누적 관객수
-                        $(tr).append("<td>"+element.audiAcc+"</td>");
+                        // console.log(typeof(element.audiAcc)); // data 타입 확인하기
+                        //.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        $(tr).append("<td>"+element.audiAcc.replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"명</td>"); // 정규 표현식 적용
                         $("#"+tableId+" tbody").append(tr);
                     }
                 );
