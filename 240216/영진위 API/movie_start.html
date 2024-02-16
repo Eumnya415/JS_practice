@@ -77,6 +77,8 @@
                 );
             }
         );
+
+        // 표 상단 날짜 표기 방식 변경
         const makeBoxOfficeList = function(boxOfficeList,tableId,searchDate){
             let searchDateStr = searchDate.substring(0,4) + "년 ";
             searchDateStr = searchDateStr + searchDate.substring(4,6) + "월 ";
@@ -94,9 +96,25 @@
                 $(boxOfficeList).each(
                     function(index,element){
                         const tr = document.createElement("tr");
+                        // 영화 순위 표시
                         $(tr).append("<td>"+element.rank+"</td>");
-                        $(tr).append("<td>"+element.rankInten+"</td>");
+
+                        // 신작 영화 아이콘 표시
+                        if(element.rankOldAndNew == "NEW"){
+                            $(tr).append("<td><img src='images/icon_new.gif'/></td>");
+                        }else{
+                            // 순위 변동 표시
+                            if(element.rankInten == 0){
+                                $(tr).append("<td>"+element.rankInten+"</td>");
+                            }else if(element.rankInten > 0){
+                                $(tr).append("<td><img src='images/icon_up.gif'/></td>");
+                            }else{
+                                $(tr).append("<td><img src='images/icon_down.gif'/></td>");
+                            }
+                        }
+                        // 영화명
                         $(tr).append("<td>"+element.movieNm+"</td>");
+                        // 누적 관객수
                         $(tr).append("<td>"+element.audiAcc+"</td>");
                         $("#"+tableId+" tbody").append(tr);
                     }
