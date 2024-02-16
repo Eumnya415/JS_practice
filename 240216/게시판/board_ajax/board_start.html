@@ -11,7 +11,17 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="text/javascript">
-      
+      const init = function(){
+        // 등록 버튼 클릭 후 쓰기 폼 표시
+        $("#regBtn").on(
+          "click",
+          function(){
+            $("#list").hide();
+            $("#writeForm").show();
+          }
+        );
+      }
+      window.onload = init;
     </script>
 </head>
 <body>
