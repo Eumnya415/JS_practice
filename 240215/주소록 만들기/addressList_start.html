@@ -49,7 +49,13 @@
 
 				// userName, userPhone값 받아오기
 				$(tr).append("<td>"+userName+"</td>");
-				$(tr).append("<td>"+userPhone+"</td>");
+
+				// 000-0000-0000 형태로 표시되게 하기
+				let userPhoneStr = userPhone.substring(0,3);
+				userPhoneStr = userPhoneStr + "-" + userPhone.substring(3,7);
+				userPhoneStr = userPhoneStr + "-" + userPhone.substring(7);
+				//console.log(userPhone.substring(0,3));
+				$(tr).append("<td>"+userPhoneStr+"</td>");
 				const td = $("<td></td>").appendTo(tr);
 				const aTagText = "<a href=\"#\"><img src=\"images/btn_del.gif\" alt=\"삭제\" /></a>";
 				const aTag = $(aTagText).appendTo(td);
