@@ -13,6 +13,21 @@
 			"click",
 			function(e){
 				e.preventDefault(); // 이중 클릭 방지
+				// FORM 검증
+				const userName = $.trim ($("#userName").val()); // 좌우 공백 제거
+				const userPhone = $.trim ($("#userPhone").val());
+				if(userName == ""){
+					alert("이름을 입력해 주세요.");
+					$("$userName").focus();
+					return false; // 함수가 더 진행이 안되게 방지
+				}
+				if(userPhone == ""){
+					alert("전화번호를 입력해 주세요.");
+					$("$userPhone").focus();
+					return false; // 함수가 더 진행이 안되게 방지
+				}
+
+				// FORM 검증
 				const rowCount = $("#adressList").data("rowCount");
 				if(rowCount == 0){
 					$("#adressList tbody tr").remove();
