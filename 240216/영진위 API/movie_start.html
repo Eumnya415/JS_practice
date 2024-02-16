@@ -24,9 +24,18 @@
             dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
             showMonthAfterYear: true,
             yearSuffix: '년'
-      });  
+      });
+      
+      // 날짜 검색 시 입력 값 받아오기
       function init(){
         $("#searchForm input[name='searchDate']").datepicker().datepicker('setDate', '-1D');
+        $("#searchBtn").on(
+            "click",
+            function(){
+                const searchDate = $("#searchForm input[name='searchDate']").val();
+                console.log(searchDate);
+            }
+        );
       }
       window.onload = init;
     </script>
