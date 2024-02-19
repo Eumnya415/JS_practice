@@ -19,8 +19,8 @@
       const labelDatas = []; // y축
       $(datas).each(
         function(index,element){
-          labels.push(element.date);
-          labelDatas.push(element.close);
+          labels.unshift(element.date); // unshift : 배열 맨 앞에 요소를 추가. label이 날짜 역순인 것을 다시 순서대로 바꿀 수 있다.
+          labelDatas.unshift(element.close);
         }
       );
       // chartContainer가 있으면 삭제
@@ -41,6 +41,7 @@
           }]
         },
         options: {
+          maintainAspectRatio:false,
           scales: {
             y: {
               beginAtZero: false
