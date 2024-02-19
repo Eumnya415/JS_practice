@@ -13,8 +13,46 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script type="text/javascript">
 
+    // data 값이 넘어와야 하므로 선언
+    const makeChart = (stock, datas) => {
+      const labels = []; // x축
+      const labelDatas = []; // y축
+      $(datas).each(
+        function(index,element){
+          labels.push(element.date);
+          labelDatas.push(element.close);
+        }
+      );
+      // chartContainer가 있으면 삭제
+      $("#chartContainer canvas").remove();
+      // chartContainer에 canvas 태그 넣기
+      // chart.js는 가볍기 때문에 태그를 더 붙여도 퍼포먼스에는 크게 문제가 없음
+      $("#chartContainer").append("<canvas id=\"myChart\"></canvas>");
+      const ctx = document.getElementById('myChart');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: stock,
+            data: labelDatas,
+            borderColor: "#ff0000",
+            backgroundColor: "#ff0000"
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: false
+            }
+          }
+        }
+      });
+    }
+
     // JSON 정보 받아오기 확인
     const init = () => {
+      // makeChart();
       $("#stockSelect").on(
         "change",
         function () {
@@ -33,7 +71,7 @@
               },
               dataType: "json",
               success: function (data) {
-                console.log(data);
+                makeChart(stock, data.datas);
               },
               error: function (jqXHR, textStatus, errorThrown) {
                 alert(textStatus + "," + errorThrown);
@@ -66,7 +104,7 @@
       </div>
     </div>
     <div class="table-responsive" id="chartContainer" style="height: 400px;">
-      <!--<canvas id="myChart"></canvas>-->
+      <!-- <canvas id="myChart"></canvas> -->
     </div>
   </main>
 </body>

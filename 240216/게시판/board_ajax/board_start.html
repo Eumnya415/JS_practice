@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -13,6 +13,7 @@
     }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
   <script type="text/javascript">
     const writeFormInit = function () {
       // 등록 버튼 클릭 후 쓰기 폼 표시
@@ -57,6 +58,7 @@
                   //console.log("insert result",data);
                   if (data.result == 'Y') {
                     alert("입력 성공!");
+                    getList();
                     $("#writeCloseBtn").trigger("click");
                   } else {
                     alert("입력 실패!");
@@ -131,6 +133,7 @@
                     "click",
                     function () {
                       console.log($(this).data("id"));
+
                       const apiUrl = "http://diddudqh.dothome.co.kr/board/view.php";
                       $.ajax(
                         {
@@ -163,104 +166,121 @@
                     "click",
                     function () {
                       console.log($(this).data("id"));
+                      if (confirm("삭제 하시겠습니까?")) {
+
+                        const apiUrl = "http://diddudqh.dothome.co.kr/board/delete.php";
+                        $.ajax(
+                          {
+                            type: "GET",
+                            url: apiUrl,
+                            data: {
+                              id: $(this).data("id")
+                            },
+                            dataType: "json",
+                            success: function (data) {
+                              if (data.result == "Y") {
+                                alert("삭제 성공!");
+                                getList();
+                              } else {
+                                alert("삭제 실패!");
+                              }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                              alert(textStatus + "," + errorThrown);
+                            }
+                          }
+                        );
+                      }
                     }
                   );
                   $("#list tbody").append(tr);
-                }
-              );
 
-            }
-          },
-          error: function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus + "," + errorThrown);
-          }
-        }
-      );
-    };
 
-    /* 글 수정 기능 : 게시판 목록에서 수정 버튼 눌렀을 때 작동 화면 */
-    const modifyForm = function (data) {
-      console.log(data);
+                  /* 글 수정 기능 : 게시판 목록에서 수정 버튼 눌렀을 때 작동 화면 */
+                  const modifyForm = function (data) {
+                    console.log(data);
 
-      $("#list, #regBtn").hide(); // 게시판 목록과 등록 버튼 숨김
-      $("#modifyForm").show(); // 수정 폼 표출
-      $("#modifyForm input[name='id']").val(data.id); // 게시글 id값 가져오기
-      $("#modifyForm input[name='title']").val(data.title); // 게시글 title값 가져오기
-      $("#modifyForm textarea[name='content']").val(data.content); // 게시글 content값 가져오기
-    }
-
-    // 수정 버튼 동작
-    const modifyFormInit = function (data) {
-      // 수정 닫기 버튼 동작
-      $("#modifyCloseBtn").on(
-        "click",
-        function () {
-          $("#list, #regBtn").show();
-          $("#modifyForm").hide();
-        }
-      );
-
-      // 수정 쓰기 버튼
-      $("#modifyBtn").on(
-        "click",
-        function () {
-          const id = $.trim($("#modifyForm input[name='id']").val()); // 글 번호
-          const title = $.trim($("#modifyForm input[name='title']").val()); // 제목
-          const content = $.trim($("#modifyForm textarea[name='content']").val()); // 내용
-          console.log(title,content);
-          if (title == "") {
-            alert("제목을 입력해 주세요.");
-            $("#modifyForm input[name='title']").focus();
-            return false;
-          }
-          if (content == "") {
-            alert("내용을 입력해 주세요.");
-            $("#modifyForm textarea[name='content']").focus();
-            return false;
-          }
-          if (confirm("정말 수정 하시겠습니까?")) {
-            const apiUrl = "http://diddudqh.dothome.co.kr/board/update.php"
-
-            // data에 id 값 추가
-            $.ajax(
-              {
-                type: "POST",
-                url: apiUrl,
-                data: {
-                  id : id,
-                  title : title,
-                  content : content
-                },
-                dataType: "json",
-                success: function (data) {
-                  //console.log("insert result",data);
-                  if (data.result == 'Y') {
-                    alert("수정 성공!");
-                    $("#modifyCloseBtn").trigger("click");
-                    getList(); 
-                  } else {
-                    alert("수정 실패!");
+                    $("#list, #regBtn").hide(); // 게시판 목록과 등록 버튼 숨김
+                    $("#modifyForm").show(); // 수정 폼 표출
+                    $("#modifyForm input[name='id']").val(data.id); // 게시글 id값 가져오기
+                    $("#modifyForm input[name='title']").val(data.title); // 게시글 title값 가져오기
+                    $("#modifyForm textarea[name='content']").val(data.content); // 게시글 content값 가져오기
                   }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                  alert(textStatus + "," + errorThrown);
-                }
-              }
-            );
-          }
-        }
-      );
 
-    }
+                  // 수정 버튼 동작
+                  const modifyFormInit = function (data) {
+                    // 수정 닫기 버튼 동작
+                    $("#modifyCloseBtn").on(
+                      "click",
+                      function () {
+                        $("#list, #regBtn").show();
+                        $("#modifyForm").hide();
+                      }
+                    );
 
-    /* 글 수정 기능 끝 */
+                    // 수정 쓰기 버튼
+                    $("#modifyBtn").on(
+                      "click",
+                      function () {
+                        const id = $.trim($("#modifyForm input[name='id']").val()); // 글 번호
+                        const title = $.trim($("#modifyForm input[name='title']").val()); // 제목
+                        const content = $.trim($("#modifyForm textarea[name='content']").val()); // 내용
+                        console.log(title, content);
+                        if (title == "") {
+                          alert("제목을 입력해 주세요.");
+                          $("#modifyForm input[name='title']").focus();
+                          return false;
+                        }
+                        if (content == "") {
+                          alert("내용을 입력해 주세요.");
+                          $("#modifyForm textarea[name='content']").focus();
+                          return false;
+                        }
+                        if (confirm("정말 수정 하시겠습니까?")) {
+                          const apiUrl = "http://diddudqh.dothome.co.kr/board/update.php"
 
-    const init = function () {
-      writeFormInit();
-      modifyFormInit();
-      getList();
-    }
-    window.onload = init;
+                          // data에 id 값 추가
+                          $.ajax(
+                            {
+                              type: "POST",
+                              url: apiUrl,
+                              data: {
+                                id: id,
+                                title: title,
+                                content: content
+                              },
+                              dataType: "json",
+                              success: function (data) {
+                                //console.log("insert result",data);
+                                if (data.result == 'Y') {
+                                  alert("수정 성공!");
+                                  $("#modifyCloseBtn").trigger("click");
+                                  getList();
+                                } else {
+                                  alert("수정 실패!");
+                                }
+                              },
+                              error: function (jqXHR, textStatus, errorThrown) {
+                                alert(textStatus + "," + errorThrown);
+                              }
+                            }
+                          );
+                        }
+                      }
+                    );
+
+                  }
+
+                  /* 글 수정 기능 끝 */
+
+                  const init = function () {
+                    writeFormInit();
+                    modifyFormInit();
+                    getList();
+                  }
+
+                  window.onload = init;
+
   </script>
 </head>
 
