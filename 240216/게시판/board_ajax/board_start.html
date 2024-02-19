@@ -197,12 +197,59 @@
           $("#modifyForm").hide();
         }
       );
+
+      // 수정 쓰기 버튼
+      $("#writeBtn").on(
+        "click",
+        function () {
+          const title = $.trim($("#writeForm input[name='title']").val());
+          const content = $.trim($("#writeForm textarea[name='content']").val());
+          if (title == "") {
+            alert("제목을 입력해 주세요.");
+            $("#writeForm input[name='title']").focus();
+            return false;
+          }
+          if (content == "") {
+            alert("내용을 입력해 주세요.");
+            $("#writeForm textarea[name='content']").focus();
+            return false;
+          }
+          if (confirm("정말 등록 하시겠습니까?")) {
+            const apiUrl = "http://diddudqh.dothome.co.kr/board/insert.php"
+            $.ajax(
+              {
+                type: "POST",
+                url: apiUrl,
+                data: {
+                  title: title,
+                  content: content
+                },
+                dataType: "json",
+                success: function (data) {
+                  //console.log("insert result",data);
+                  if (data.result == 'Y') {
+                    alert("입력 성공!");
+                    $("#writeCloseBtn").trigger("click");
+                  } else {
+                    alert("입력 실패!");
+                  }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                  alert(textStatus + "," + errorThrown);
+                }
+              }
+            );
+          }
+        }
+      );
+
     }
 
     /* 글 수정 기능 끝 */
 
     const init = function () {
       writeFormInit();
+      modifyFormInit();
       getList();
     }
     window.onload = init;
