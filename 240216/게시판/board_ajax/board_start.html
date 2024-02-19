@@ -145,7 +145,7 @@
                               alert("조회하신 정보가 없습니다.");
                             } else {
                               //console.log("view result", data);
-                              modifyFormInit(data.result[0]);
+                              modifyForm(data.result[0]); // 메서드 명 변경
                             }
                           },
                           error: function (jqXHR, textStatus, errorThrown) {
@@ -198,7 +198,7 @@
         }
       );
     }
-    
+
     /* 글 수정 기능 끝 */
 
     const init = function () {
