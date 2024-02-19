@@ -199,39 +199,45 @@
       );
 
       // 수정 쓰기 버튼
-      $("#writeBtn").on(
+      $("#modifyBtn").on(
         "click",
         function () {
-          const title = $.trim($("#writeForm input[name='title']").val());
-          const content = $.trim($("#writeForm textarea[name='content']").val());
+          const id = $.trim($("#modifyForm input[name='id']").val());
+          const title = $.trim($("#modifyForm input[name='title']").val());
+          const content = $.trim($("#modifyForm textarea[name='content']").val());
+          console.log(title,content);
           if (title == "") {
             alert("제목을 입력해 주세요.");
-            $("#writeForm input[name='title']").focus();
+            $("#modifyForm input[name='title']").focus();
             return false;
           }
           if (content == "") {
             alert("내용을 입력해 주세요.");
-            $("#writeForm textarea[name='content']").focus();
+            $("#modifyForm textarea[name='content']").focus();
             return false;
           }
-          if (confirm("정말 등록 하시겠습니까?")) {
-            const apiUrl = "http://diddudqh.dothome.co.kr/board/insert.php"
+          if (confirm("정말 수정 하시겠습니까?")) {
+            const apiUrl = "http://diddudqh.dothome.co.kr/board/update.php"
+
+            // data에 id 값 추가
             $.ajax(
               {
                 type: "POST",
                 url: apiUrl,
                 data: {
-                  title: title,
-                  content: content
+                  id : id,
+                  title : title,
+                  content : content
                 },
                 dataType: "json",
                 success: function (data) {
                   //console.log("insert result",data);
                   if (data.result == 'Y') {
-                    alert("입력 성공!");
-                    $("#writeCloseBtn").trigger("click");
+                    alert("수정 성공!");
+                    $("#modifyCloseBtn").trigger("click");
+                    getList(); 
                   } else {
-                    alert("입력 실패!");
+                    alert("수정 실패!");
                   }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
